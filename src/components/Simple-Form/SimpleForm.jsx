@@ -1,37 +1,37 @@
 import { useState } from "react";
 
 const StatefulForm = () => {
-
-
-    const [email,setEmail]= useState(null);
-    const [password,setPassword] =useState(null);
-
-
+  const [name, setName] = useState([]);
+  const [email, setEmail] = useState([]);
+  const [password, setPassword] = useState([]);
+  const [error,setError]=useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if(password.length<6){
+        setError('Password must be 6 characters or longer')
+    }
+    else 
+{
+    setError(' ');
+}
   };
-  const handleEmailChange = e =>{
-
-     setEmail(e.target.value);
-  }
-  const handlePassChange = e =>{
-    setPassword(e.target.value)
-  }
+  
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="name" value="" id=""/>
+        <input onChange={handleNameChange} type="text" name="name" value={name} />
         <br />
-        <input onChange={handleEmailChange}
-         type="email" name="email" id="" />
+        <input onChange={handleEmailChange} type="email" name="email" value={email} id="" />
         <br />
-        <input onChange={handlePassChange}
-         type="password" name="password" />
+        <input onChange={handlePassChange} type="password" name="password" value={password} required/>
         <br />
         <input type="submit" value="submit" />
+        {
+            error && <p>{error}</p>
+        }
       </form>
     </div>
   );
